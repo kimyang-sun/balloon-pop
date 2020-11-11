@@ -1,4 +1,6 @@
 "use strict";
+import * as sound from "./sound.js";
+
 const BALLOON_SIZE_X = 112;
 const BALLOON_SIZE_Y = 140;
 const GAME_DURATION = 20;
@@ -27,6 +29,7 @@ levelBtns.addEventListener("click", event => {
   } else {
     onChangeLevel(levels.normal);
   }
+  sound.playBtn();
 });
 
 function onChangeLevel(level) {
@@ -97,6 +100,7 @@ startBtn.addEventListener("click", () => {
 
 function start() {
   started = true;
+  sound.playBg();
   initImages();
   ready.style.visibility = "hidden";
   footer.classList.add("on");
@@ -126,6 +130,7 @@ function stop(reason) {
   started = false;
   stopTimer();
   showPopUp(reason);
+  sound.stopBg();
 }
 
 function stopTimer() {
@@ -153,8 +158,9 @@ field.addEventListener("click", event => {
       target.remove();
       ++countValue;
       clickCount();
+      sound.playPop();
     } else {
-      console.log("no!");
+      sound.playNo();
     }
   }
 });
@@ -166,7 +172,10 @@ const endPopUp = document.querySelector(".game__popup--end");
 const endPopUpText = document.querySelector(".popup__text");
 
 levelPopUpBtn.forEach(btn => {
-  btn.addEventListener("click", event => showPopUp(Reason.level));
+  btn.addEventListener("click", event => {
+    sound.playBtn();
+    showPopUp(Reason.level);
+  });
 });
 
 function showPopUp(reason) {
@@ -190,8 +199,10 @@ function showPopUp(reason) {
 function setPopUpText(reason) {
   let message;
   if (reason === Reason.win) {
+    sound.playWin();
     message = "YOU WON";
   } else {
+    sound.playLose();
     message = "GAME OVER";
   }
   endPopUpText.innerText = message;
