@@ -30,7 +30,7 @@ export function playBtn() {
 }
 
 export function playPop() {
-  popSound.volume = 0.3;
+  popSound.volume = 0.25;
   playSound(popSound);
 }
 
@@ -45,6 +45,6 @@ export function playWin() {
 }
 
 export function playLose() {
-  loseSound.volume = 0.4;
+  loseSound.volume = 0.5;
   playSound(loseSound);
 }
