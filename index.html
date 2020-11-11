@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Balloon Pop!</title>
+    <!-- favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/favicon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./img/favicon/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./img/favicon/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./img/favicon/favicon-16x16.png"
+    />
+    <meta
+      name="msapplication-TileImage"
+      content="./img/favicon/ms-icon-150x150.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/6f88dac71d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./src/main.js" defer></script>
+  </head>
+  <body>
+    <main class="game__wrap" role="main">
+      <section class="game__ready">
+        <h1>BALLOON<br />POP🎈</h1>
+        <button class="game__start__btn" type="button">
+          START <i class="far fa-play-circle"></i>
+        </button>
+        <button class="game__level__btn" type="button">LEVEL</button>
+        <p class="level">normal</p>
+      </section>
+      <section class="game__footer">
+        <div class="count-box">
+          <img src="./img/balloon_1.png" alt="balloon" />
+          <span class="count"></span>
+        </div>
+        <div class="timer-box">
+          <img src="./img/bomb.png" alt="bomb" />
+          <span class="timer"></span>
+        </div>
+      </section>
+      <section class="game__popup--level">
+        <div class="level__container">
+          <h2>LEVEL</h2>
+          <button class="easy" type="button">EASY</button>
+          <button class="normal" type="button">NORMAL</button>
+          <button class="hard" type="button">HARD</button>
+        </div>
+      </section>
+      <section class="game__popup--end">
+        <div class="end__container">
+          <h2 class="popup__text">GAME OVER</h2>
+          <button class="game__retry__btn" type="button">RETRY</button>
+          <button class="game__level__btn" type="button">LEVEL</button>
+          <p class="level">normal</p>
+        </div>
+      </section>
+      <section class="game__field"></section>
+    </main>
+  </body>
+</html>
