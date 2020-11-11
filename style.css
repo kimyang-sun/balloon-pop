@@ -168,6 +168,10 @@ body {
   visibility: hidden;
 }
 
+.game__popup--level {
+  z-index: 101;
+}
+
 .game__popup--level.visible,
 .game__popup--end.visible {
   visibility: visible;

@@ -21,16 +21,16 @@ levelBtns.addEventListener("click", event => {
   if (target.tagName !== "BUTTON") return;
   if (target.matches(".easy")) {
     onChangeLevel(levels.easy);
-  } else if (target.matches(".normal")) {
-    onChangeLevel(levels.normal);
-  } else {
+  } else if (target.matches(".hard")) {
     onChangeLevel(levels.hard);
+  } else {
+    onChangeLevel(levels.normal);
   }
 });
 
 function onChangeLevel(level) {
   const levelText = document.querySelectorAll(".level");
-  levelText.forEach(text => (text.innerHTML = level));
+  levelText.forEach(text => (text.innerText = level));
   currentLevel = level;
   hidePopUp(levelPopUp);
 }
@@ -42,11 +42,11 @@ const fieldRect = field.getBoundingClientRect();
 function initImages() {
   field.innerHTML = "";
   if (currentLevel === levels.easy) {
-    balloonCount = 20;
-  } else if (currentLevel === levels.normal) {
+    balloonCount = 10;
+  } else if (currentLevel === levels.hard) {
     balloonCount = 30;
   } else {
-    balloonCount = 40;
+    balloonCount = 20;
   }
   addItems("balloon", "./img/balloon_", balloonCount);
 }
@@ -79,6 +79,12 @@ function addItems(imgName, imgSrc, count) {
 }
 
 // Game Start
+const Reason = Object.freeze({
+  level: "level",
+  win: "win",
+  lose: "lose",
+});
+
 const ready = document.querySelector(".game__ready");
 const footer = document.querySelector(".game__footer");
 const count = document.querySelector(".count");
@@ -94,7 +100,7 @@ function start() {
   ready.style.visibility = "hidden";
   footer.classList.add("on");
   startTimer();
-  startCount();
+  clickCount();
 }
 
 function startTimer() {
@@ -102,27 +108,81 @@ function startTimer() {
   timerValue = setInterval(() => {
     timer.innerText = --gameDuration;
     if (gameDuration <= 0) {
+      stop(Reason.lose);
     }
   }, 1000);
 }
 
-function startCount() {
+function clickCount() {
   count.innerText = countValue;
   if (balloonCount === countValue) {
+    stop(Reason.win);
   }
 }
+
+// Game Stop
+function stop(reason) {
+  started = false;
+  stopTimer();
+  showPopUp(reason);
+}
+
+function stopTimer() {
+  clearInterval(timerValue);
+}
+
+// Balloon Click
+field.addEventListener("click", event => {
+  //if (!started) return;
+  const target = event.target.closest(".balloon");
+  if (!target) return;
+  if (target.matches(".balloon")) {
+    if (countValue + 1 == target.lastChild.innerText) {
+      target.remove();
+      ++countValue;
+      clickCount();
+    } else {
+      console.log("no!");
+    }
+  }
+});
 
 // Popup on/off
 const levelPopUpBtn = document.querySelectorAll(".game__level__btn");
 const levelPopUp = document.querySelector(".game__popup--level");
 const endPopUp = document.querySelector(".game__popup--end");
+const endPopUpText = document.querySelector(".popup__text");
 
 levelPopUpBtn.forEach(btn => {
-  btn.addEventListener("click", event => showPopUp(levelPopUp));
+  btn.addEventListener("click", event => showPopUp(Reason.level));
 });
 
-function showPopUp(popup) {
+function showPopUp(reason) {
+  let popup;
+  switch (reason) {
+    case Reason.level:
+      popup = levelPopUp;
+      break;
+    case Reason.win:
+      popup = endPopUp;
+      setPopUpText(reason);
+      break;
+    case Reason.lose:
+      popup = endPopUp;
+      setPopUpText(reason);
+      break;
+  }
   popup.classList.add("visible");
+}
+
+function setPopUpText(reason) {
+  let message;
+  if (reason === Reason.win) {
+    message = "YOU WON";
+  } else {
+    message = "GAME OVER";
+  }
+  endPopUpText.innerText = message;
 }
 
 function hidePopUp(popup) {
