@@ -1,8 +1,9 @@
 "use strict";
 const BALLOON_SIZE_X = 112;
 const BALLOON_SIZE_Y = 140;
+const GAME_DURATION = 20;
 let balloonCount = 20;
-let gameDuration = 20;
+let gameDuration = GAME_DURATION;
 let timerValue = undefined;
 let countValue = 0;
 let started = false;
@@ -84,18 +85,18 @@ const Reason = Object.freeze({
   win: "win",
   lose: "lose",
 });
-
 const ready = document.querySelector(".game__ready");
 const footer = document.querySelector(".game__footer");
 const count = document.querySelector(".count");
 const timer = document.querySelector(".timer");
-
+const retryBtn = document.querySelector(".game__retry__btn");
 const startBtn = document.querySelector(".game__start__btn");
 startBtn.addEventListener("click", () => {
   start();
 });
 
 function start() {
+  started = true;
   initImages();
   ready.style.visibility = "hidden";
   footer.classList.add("on");
@@ -131,9 +132,20 @@ function stopTimer() {
   clearInterval(timerValue);
 }
 
+// Game Retry
+function reStart() {
+  countValue = 0;
+  gameDuration = GAME_DURATION;
+  hidePopUp(endPopUp);
+  start();
+}
+retryBtn.addEventListener("click", () => {
+  reStart();
+});
+
 // Balloon Click
 field.addEventListener("click", event => {
-  //if (!started) return;
+  if (!started) return;
   const target = event.target.closest(".balloon");
   if (!target) return;
   if (target.matches(".balloon")) {
