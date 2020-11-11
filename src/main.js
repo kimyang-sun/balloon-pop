@@ -2,6 +2,38 @@
 const BALLOON_SIZE_X = 112;
 const BALLOON_SIZE_Y = 140;
 let balloonCount = 20;
+let gameDuration = 20;
+let timerValue = undefined;
+let countValue = 0;
+let started = false;
+
+// Level Select
+const levels = Object.freeze({
+  easy: "easy",
+  normal: "normal",
+  hard: "hard",
+});
+const levelBtns = document.querySelector(".level__container");
+let currentLevel = "normal";
+
+levelBtns.addEventListener("click", event => {
+  const target = event.target;
+  if (target.tagName !== "BUTTON") return;
+  if (target.matches(".easy")) {
+    onChangeLevel(levels.easy);
+  } else if (target.matches(".normal")) {
+    onChangeLevel(levels.normal);
+  } else {
+    onChangeLevel(levels.hard);
+  }
+});
+
+function onChangeLevel(level) {
+  const levelText = document.querySelectorAll(".level");
+  levelText.forEach(text => (text.innerHTML = level));
+  currentLevel = level;
+  hidePopUp(levelPopUp);
+}
 
 // Game Field
 const field = document.querySelector(".game__field");
@@ -9,6 +41,13 @@ const fieldRect = field.getBoundingClientRect();
 
 function initImages() {
   field.innerHTML = "";
+  if (currentLevel === levels.easy) {
+    balloonCount = 20;
+  } else if (currentLevel === levels.normal) {
+    balloonCount = 30;
+  } else {
+    balloonCount = 40;
+  }
   addItems("balloon", "./img/balloon_", balloonCount);
 }
 
@@ -40,9 +79,11 @@ function addItems(imgName, imgSrc, count) {
 }
 
 // Game Start
+const ready = document.querySelector(".game__ready");
 const footer = document.querySelector(".game__footer");
 const count = document.querySelector(".count");
 const timer = document.querySelector(".timer");
+
 const startBtn = document.querySelector(".game__start__btn");
 startBtn.addEventListener("click", () => {
   start();
@@ -50,12 +91,26 @@ startBtn.addEventListener("click", () => {
 
 function start() {
   initImages();
+  ready.style.visibility = "hidden";
   footer.classList.add("on");
+  startTimer();
+  startCount();
 }
 
-function startCount() {}
+function startTimer() {
+  timer.innerText = gameDuration;
+  timerValue = setInterval(() => {
+    timer.innerText = --gameDuration;
+    if (gameDuration <= 0) {
+    }
+  }, 1000);
+}
 
-function startTimer() {}
+function startCount() {
+  count.innerText = countValue;
+  if (balloonCount === countValue) {
+  }
+}
 
 // Popup on/off
 const levelPopUpBtn = document.querySelectorAll(".game__level__btn");
@@ -72,32 +127,4 @@ function showPopUp(popup) {
 
 function hidePopUp(popup) {
   popup.classList.remove("visible");
-}
-
-// Level Select
-const levels = Object.freeze({
-  easy: "easy",
-  normal: "normal",
-  hard: "hard",
-});
-const levelBtns = document.querySelector(".level__container");
-let currentLevel = "normal";
-
-levelBtns.addEventListener("click", event => {
-  const target = event.target;
-  if (target.tagName !== "BUTTON") return;
-  if (target.matches(".easy")) {
-    onChangeLevel(levels.easy);
-  } else if (target.matches(".normal")) {
-    onChangeLevel(levels.normal);
-  } else {
-    onChangeLevel(levels.hard);
-  }
-});
-
-function onChangeLevel(level) {
-  const levelText = document.querySelectorAll(".level");
-  levelText.forEach(text => (text.innerHTML = level));
-  currentLevel = level;
-  hidePopUp(levelPopUp);
 }
