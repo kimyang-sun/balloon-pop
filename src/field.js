@@ -20,11 +20,11 @@ export default class Field {
   initImages() {
     this.field.innerHTML = "";
     if (this.currentLevel === Level.easy) {
-      this.balloonCount = 10;
-    } else if (this.currentLevel === Level.hard) {
-      this.balloonCount = 30;
-    } else {
       this.balloonCount = 20;
+    } else if (this.currentLevel === Level.hard) {
+      this.balloonCount = 40;
+    } else {
+      this.balloonCount = 30;
     }
     this.addItems("balloon", "./img/balloon_", this.balloonCount);
   }
