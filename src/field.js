@@ -4,7 +4,7 @@ export default class Field {
   constructor(balloonSizeX, balloonSizeY) {
     this.balloonSizeX = balloonSizeX;
     this.balloonSizeY = balloonSizeY;
-    this.balloonCount = 20;
+    this.balloonCount = 30;
     this.field = document.querySelector(".game__field");
     this.fieldRect = this.field.getBoundingClientRect();
     this.currentLevel = "normal";
