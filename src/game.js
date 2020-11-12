@@ -15,6 +15,7 @@ export const Reason = Object.freeze({
   lose: "lose",
 });
 
+// Builder Pattern
 export class GameBuilder {
   gameDuration(num) {
     this.gameDuration = num;
@@ -36,6 +37,7 @@ export class GameBuilder {
   }
 }
 
+// Game Class
 class Game {
   constructor(gameDuration, balloonSizeX, balloonSizeY) {
     this.GAME_DURATION = gameDuration;
