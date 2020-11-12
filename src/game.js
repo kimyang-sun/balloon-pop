@@ -129,6 +129,7 @@ class Game {
       this.stop(Reason.win);
     }
   }
+
   // Game Stop
   stop(reason) {
     this.started = false;
