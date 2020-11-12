@@ -15,7 +15,28 @@ export const Reason = Object.freeze({
   lose: "lose",
 });
 
-export class Game {
+export class GameBuilder {
+  gameDuration(num) {
+    this.gameDuration = num;
+    return this;
+  }
+
+  balloonSizeX(num) {
+    this.balloonSizeX = num;
+    return this;
+  }
+
+  balloonSizeY(num) {
+    this.balloonSizeY = num;
+    return this;
+  }
+
+  build() {
+    return new Game(this.gameDuration, this.balloonSizeX, this.balloonSizeY);
+  }
+}
+
+class Game {
   constructor(gameDuration, balloonSizeX, balloonSizeY) {
     this.GAME_DURATION = gameDuration;
     this.gameDuration = gameDuration;
