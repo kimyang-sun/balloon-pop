@@ -1,14 +1,20 @@
 "use strict";
-import { Level } from "./main.js";
+import { Level } from "./game.js";
 export default class Field {
-  constructor(gameDuration, balloonSizeX, balloonSizeY) {
+  constructor(balloonSizeX, balloonSizeY) {
+    this.balloonSizeX = balloonSizeX;
+    this.balloonSizeY = balloonSizeY;
+    this.balloonCount = 20;
     this.field = document.querySelector(".game__field");
     this.fieldRect = this.field.getBoundingClientRect();
     this.currentLevel = "normal";
-    this.balloonCount = 20;
-    this.gameDuration = gameDuration;
-    this.balloonSizeX = balloonSizeX;
-    this.balloonSizeY = balloonSizeY;
+    this.field.addEventListener("click", event => {
+      this.onItemClick(event) && this.onItemClick(event);
+    });
+  }
+
+  setClickListener(onItemClick) {
+    this.onItemClick = onItemClick;
   }
 
   initImages() {

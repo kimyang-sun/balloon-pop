@@ -1,5 +1,5 @@
 "use strict";
-import { Reason } from "./main.js";
+import { Reason } from "./game.js";
 import * as sound from "./sound.js";
 
 export default class PopUp {
@@ -11,12 +11,12 @@ export default class PopUp {
     this.levelPopUpBtn.forEach(btn => {
       btn.addEventListener("click", () => {
         sound.playBtn();
-        this.showPopUp(Reason.level);
+        this.show(Reason.level);
       });
     });
   }
 
-  showPopUp(reason) {
+  show(reason) {
     let popup;
     switch (reason) {
       case Reason.level:
@@ -46,7 +46,7 @@ export default class PopUp {
     this.endPopUpText.innerText = message;
   }
 
-  hidePopUp(popup) {
+  hide(popup) {
     popup.classList.remove("visible");
   }
 }
