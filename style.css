@@ -41,6 +41,7 @@ button {
   font-family: inherit;
   border-radius: var(--border-radius);
   padding: 6px 10px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .blind {
